@@ -6,5 +6,12 @@
 */
 {
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./projects/mat-file-input/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/mat-file-input/tsconfig.spec.json"
+    }
+]
 }
