@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { MatFileInputComponent } from './mat-file-input.component';
-
-
+import { MatFileInputComponent } from './mat-file-input/mat-file-input.component';
+import { ByteFormatPipe } from './pipes/byte-format.pipe';
 
 @NgModule({
-  declarations: [MatFileInputComponent],
-  imports: [
-  ],
-  exports: [MatFileInputComponent]
+  declarations: [ MatFileInputComponent, ByteFormatPipe ],
+  imports: [],
+  exports: [ MatFileInputComponent ]
 })
-export class MatFileInputModule { }
+export class MatFileInputModule {}
