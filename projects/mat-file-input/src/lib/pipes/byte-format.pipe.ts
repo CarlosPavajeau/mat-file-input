@@ -44,6 +44,6 @@ export class ByteFormatPipe implements PipeTransform {
 
     const byteScale = Math.floor(Math.log(bytes) / Math.log(kilobytes));
 
-    return parseFloat((bytes / Math.pow(kilobytes, byteScale)).toFixed(decimals)) + ' ' + sizes[byteScale];
+    return parseFloat((bytes / Math.pow(kilobytes, byteScale)).toFixed(decimalsCount)) + ' ' + sizes[byteScale];
   }
 }
