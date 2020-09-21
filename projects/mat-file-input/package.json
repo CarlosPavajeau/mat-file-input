@@ -1,11 +1,36 @@
 {
   "name": "mat-file-input",
-  "version": "0.0.1",
+  "version": "1.0.2",
+  "license": "MIT",
+  "author": {
+    "name": "Carlos Andrés Pavajeau Max"
+  },
+  "description": "File input management for Angular Material",
+  "keywords": [
+    "angular",
+    "material",
+    "file",
+    "input",
+    "mat-form-field"
+  ],
+  "bugs": {
+    "url": "https://github.com/cantte/mat-file-input/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cantte/mat-file-input"
+  },
   "peerDependencies": {
     "@angular/common": "^10.0.14",
     "@angular/core": "^10.0.14"
   },
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/public-api.ts"
+    },
+    "dest": "../../dist/mat-file-input"
   }
 }

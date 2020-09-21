@@ -1,10 +1,13 @@
 {
   "name": "mat-file-input",
-  "version": "1.0.0",
+  "version": "1.0.2",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:lib": "ng-packagr -p projects/mat-file-input/package.json && cp README.md dist/mat-file-input",
+    "publish:lib": "npm publish dist/material-file-input",
     "test": "ng test",
     "test:once": "ng test mat-file-input --watch=false",
     "lint": "ng lint",
