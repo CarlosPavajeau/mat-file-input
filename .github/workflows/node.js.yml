@@ -26,9 +26,10 @@ jobs:
 
       - run: sudo apt-get update
       - run: sudo apt-get install -y libgbm-dev
+      - run: sudo apt-get install -y xvfb
       - run: "sudo chown root /opt/google/chrome/chrome-sandbox"
       - run: "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
       - run: npm install coveralls
       - run: npm ci
       - run: npm run build --if-present
-      - run: npm test
+      - run: xvfb-run -a npm run test:once --browser=ChromeNoSandbox
