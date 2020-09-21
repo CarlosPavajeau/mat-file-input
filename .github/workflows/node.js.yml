@@ -26,6 +26,7 @@ jobs:
 
       - run: sudo apt-get update
       - run: sudo apt-get install -y libgbm-dev
+      - run: sudo apt-get install -y xvfb
       - run: export DISPLAY=:99.0
       - run: sh -e /etc/init.d/xvfb start
       - run: export CHROME_BIN=chromium-browser
