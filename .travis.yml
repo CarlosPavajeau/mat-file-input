@@ -1,0 +1,47 @@
+dist: trusty
+sudo: required
+
+languaje: node_js
+node_js:
+  - "12.16.1"
+
+cache: npm
+
+os:
+  - linux
+
+addons:
+  chrome: stable
+
+stages:
+  - validate
+
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb star
+  - export CHROME_BIN=chromium-browser
+
+install:
+  - npm ci
+
+jobs:
+  include:
+    - stage: validate
+      name: "Lint"
+      script:
+        - npm run lint
+    - stage: validate
+      name: "Unit test and Coverage"
+      node_js:
+        - "10"
+        - "11"
+        - "12"
+      before_script:
+        - "sudo chown root /opt/google/chrome/chrome-sandbox"
+        - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
+        - npm install coveralls
+      script:
+        - echo "> Running tests against $(node -v)"
+        - npm run test:once -- --code-coverage
+      after_success:
+        - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.jscat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
