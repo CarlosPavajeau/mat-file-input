@@ -1,27 +1,83 @@
 # MatFileInput
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.
+Material component for files
 
-## Development server
+# Build status
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+[![Build Status](https://travis-ci.com/cantte/mat-input-file.svg?branch=master)](https://travis-ci.com/cantte/mat-input-file.svg?branch=master)
+![Node.js CI](https://github.com/cantte/mat-file-input/workflows/Node.js%20CI/badge.svg)
+[![cantte](https://circleci.com/gh/cantte/mat-file-input.svg?style=svg)](https://circleci.com/gh/cantte/mat-file-input)
 
-## Code scaffolding
+# This project provides:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- `mat-file-input` component, to use inside Angular Material `mat-form-field`
+- a `FileValidator` with `maxContentSize`, to limit the file size
+- a `ByteFormatPipe` to format the file size in a human-readable format
 
-## Build
+## Install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```
+npm i mat-file-input --save
+```
 
-## Running unit tests
+## API reference
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### MatFileInputModule
 
-## Running end-to-end tests
+```ts
+import { MatFileInputModule } from 'mat-file-input';
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+@NgModule({
+  imports: [
+    // the module for this lib
+    MatFileInputModule
+  ]
+})
+```
 
-## Further help
+#### MAT_FILE_INPUT_CONFIG token (optional):
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Change the unit of the ByteFormat pipe
+
+```ts
+export const config: FileInputConfig = {
+  sizeUnit: "Octet",
+};
+
+// add with module injection
+providers: [{ provide: MAT_FILE_INPUT_CONFIG, useValue: config }];
+```
+
+### FileInputComponent
+
+selector: `<mat-file-input>`
+
+implements: [MatFormFieldControl](https://material.angular.io/components/form-field/api#MatFormFieldControl)<FileInput> from Angular Material
+
+**Additionnal properties**
+
+| Name                                  | Description                                                                                                                 |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| _@Input()_ valuePlaceholder: `string` | Placeholder for file names, empty by default                                                                                |
+| _@Input()_ multiple: `boolean`        | Allows multiple file inputs, `false` by default                                                                             |
+| _@Input()_ autofilled: `boolean`      | Whether the input is currently in an autofilled state. If property is not present on the control it is assumed to be false. |
+| _@Input()_ accept: `string`           | Any value that `accept` attribute can get. [more about "accept"](https://www.w3schools.com/tags/att_input_accept.asp)       |
+| value: `FileInput`                    | Form control value                                                                                                          |
+| empty: `boolean`                      | Whether the input is empty (no files) or not                                                                                |
+| clear(): `(event?) => void`           | Removes all files from the input                                                                                            |
+
+### ByteFormatPipe
+
+**Example**
+
+```html
+<span>{{ 104857600 | byteFormat }}</span>
+```
+
+_Output:_ 100 MB
+
+### FileValidator
+
+| Name                                           | Description                                     | Error structure                           |
+| ---------------------------------------------- | ----------------------------------------------- | ----------------------------------------- |
+| maxContentSize(value: `number`): `ValidatorFn` | Limit the total file(s) size to the given value | `{ actualSize: number, maxSize: number }` |
