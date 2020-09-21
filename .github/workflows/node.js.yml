@@ -23,8 +23,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
       - run: sudo apt-get update
       - run: sudo apt-get install -y libgbm-dev
+      - run: export DISPLAY=:99.0
+      - run: sh -e /etc/init.d/xvfb start
+      - run: export CHROME_BIN=chromium-browser
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
