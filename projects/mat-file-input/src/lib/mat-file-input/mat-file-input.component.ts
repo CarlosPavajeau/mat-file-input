@@ -35,7 +35,9 @@ export class MatFileInputComponent extends FileInputMixinBase
 
   @Input() autofilled = false;
 
+  // tslint:disable-next-line: variable-name
   private _placeholder: string;
+  // tslint:disable-next-line: variable-name
   private _required = false;
 
   @Input() valuePlaceholder: string;
@@ -51,7 +53,7 @@ export class MatFileInputComponent extends FileInputMixinBase
   }
 
   get value(): FileInput | null {
-    return this.empty ? null : new FileInput(this._elementRef.nativeElement.value || []);
+    return this.empty ? null : new FileInput(this.elementRef.nativeElement.value || []);
   }
 
   set value(fileInput: FileInput | null) {
@@ -72,7 +74,7 @@ export class MatFileInputComponent extends FileInputMixinBase
   }
 
   get empty(): boolean {
-    return !this._elementRef.nativeElement.value || this._elementRef.nativeElement.value.length === 0;
+    return !this.elementRef.nativeElement.value || this.elementRef.nativeElement.value.length === 0;
   }
 
   @HostBinding('class.mat-form-field-should-float')
@@ -96,7 +98,7 @@ export class MatFileInputComponent extends FileInputMixinBase
 
   @Input()
   get disabled(): boolean {
-    return this._elementRef.nativeElement.disabled;
+    return this.elementRef.nativeElement.disabled;
   }
   set disabled(dis: boolean) {
     this.setDisabledState(coerceBooleanProperty(dis));
@@ -105,7 +107,7 @@ export class MatFileInputComponent extends FileInputMixinBase
 
   onContainerClick(event: MouseEvent): void {
     if ((event.target as Element).tagName.toLowerCase() !== 'input' && !this.disabled) {
-      this._elementRef.nativeElement.querySelector('input').focus();
+      this.elementRef.nativeElement.querySelector('input').focus();
       this.focused = true;
       this.open();
     }
@@ -116,43 +118,43 @@ export class MatFileInputComponent extends FileInputMixinBase
    */
   constructor(
     private fm: FocusMonitor,
-    private _elementRef: ElementRef,
-    private _renderer: Renderer2,
-    public _defaultErrorStateMatcher: ErrorStateMatcher,
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+    public defaultErrorStateMatcher: ErrorStateMatcher,
     @Optional()
     @Self()
     public ngControl: NgControl,
-    @Optional() public _parentForm: NgForm,
-    @Optional() public _parentFormGroup: FormGroupDirective
+    @Optional() public parentForm: NgForm,
+    @Optional() public parentFormGroup: FormGroupDirective
   ) {
-    super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
+    super(defaultErrorStateMatcher, parentForm, parentFormGroup, ngControl);
 
     if (this.ngControl != null) {
       this.ngControl.valueAccessor = this;
     }
-    fm.monitor(_elementRef.nativeElement, true).subscribe((origin) => {
+    fm.monitor(elementRef.nativeElement, true).subscribe((origin) => {
       this.focused = !!origin;
       this.stateChanges.next();
     });
   }
 
-  private _onChange = (_: any) => {};
-  private _onTouched = () => {};
+  private onChange = (_: any) => {};
+  private onTouched = () => {};
 
   get fileNames(): string {
     return this.value ? this.value.fileNames : this.valuePlaceholder;
   }
 
   writeValue(obj: FileInput | null): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'value', obj instanceof FileInput ? obj.files : null);
+    this.renderer.setProperty(this.elementRef.nativeElement, 'value', obj instanceof FileInput ? obj.files : null);
   }
 
   registerOnChange(fn: (_: any) => void): void {
-    this._onChange = fn;
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
-    this._onTouched = fn;
+    this.onTouched = fn;
   }
 
   /**
@@ -165,8 +167,8 @@ export class MatFileInputComponent extends FileInputMixinBase
       event.stopPropagation();
     }
     this.value = new FileInput([]);
-    this._elementRef.nativeElement.querySelector('input').value = null;
-    this._onChange(this.value);
+    this.elementRef.nativeElement.querySelector('input').value = null;
+    this.onChange(this.value);
   }
 
   @HostListener('change', [ '$event' ])
@@ -174,22 +176,22 @@ export class MatFileInputComponent extends FileInputMixinBase
     const fileList: FileList | null = (event.target as HTMLInputElement).files;
     const fileArray: File[] = [];
     if (fileList) {
-      for (let i = 0; i < fileList.length; i++) {
-        fileArray.push(fileList[i]);
+      for (const file of Array.from(fileList)) {
+        fileArray.push(file);
       }
     }
     this.value = new FileInput(fileArray);
-    this._onChange(this.value);
+    this.onChange(this.value);
   }
 
   @HostListener('focusout')
   blur(): void {
     this.focused = false;
-    this._onTouched();
+    this.onTouched();
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
+    this.renderer.setProperty(this.elementRef.nativeElement, 'disabled', isDisabled);
   }
 
   ngOnInit(): void {
@@ -198,13 +200,13 @@ export class MatFileInputComponent extends FileInputMixinBase
 
   open(): void {
     if (!this.disabled) {
-      this._elementRef.nativeElement.querySelector('input').click();
+      this.elementRef.nativeElement.querySelector('input').click();
     }
   }
 
   ngOnDestroy(): void {
     this.stateChanges.complete();
-    this.fm.stopMonitoring(this._elementRef.nativeElement);
+    this.fm.stopMonitoring(this.elementRef.nativeElement);
   }
 
   ngDoCheck(): void {
