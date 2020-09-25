@@ -4,7 +4,7 @@ Material component for files
 
 # Build status
 
-[![Build Status](https://travis-ci.com/cantte/mat-input-file.svg?branch=master)](https://travis-ci.com/cantte/mat-input-file.svg?branch=master)
+[![Build Status](https://travis-ci.com/cantte/mat-file-input.svg?branch=master)](https://travis-ci.com/cantte/mat-input-file.svg?branch=master)
 ![Node.js CI](https://github.com/cantte/mat-file-input/workflows/Node.js%20CI/badge.svg)
 [![cantte](https://circleci.com/gh/cantte/mat-file-input.svg?style=svg)](https://circleci.com/gh/cantte/mat-file-input)
 
