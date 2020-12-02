@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:lib": "ng-packagr -p projects/mat-file-input/package.json && cp README.md dist/mat-file-input",
+    "build:lib": "ng build mat-file-input --prod && cd dist/mat-file-input && npm pack",
     "publish:lib": "npm publish dist/material-file-input",
     "test": "ng test",
     "test:once": "ng test mat-file-input --watch=false",
