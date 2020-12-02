@@ -1,6 +1,6 @@
 {
   "name": "mat-file-input",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "license": "MIT",
   "author": {
     "name": "Carlos Andrés Pavajeau Max"
@@ -21,8 +21,8 @@
     "url": "https://github.com/cantte/mat-file-input"
   },
   "peerDependencies": {
-    "@angular/common": "^10.0.14",
-    "@angular/core": "^10.0.14"
+    "@angular/common": "~11.0.2",
+    "@angular/core": "~11.0.2"
   },
   "dependencies": {
     "tslib": "^2.0.0"
