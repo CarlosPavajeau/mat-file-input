@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import {
   FormControl,
   FormGroupDirective,
@@ -41,7 +41,7 @@ describe('MatFileInputComponent', () => {
   let fixture: ComponentFixture<MatFileInputComponent>;
 
   beforeEach(
-    async(() => {
+    waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [ MatFileInputComponent ],
         imports: [
