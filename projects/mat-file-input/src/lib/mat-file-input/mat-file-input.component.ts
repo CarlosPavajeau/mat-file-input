@@ -53,7 +53,10 @@ export class MatFileInputComponent extends FileInputMixinBase
   }
 
   get value(): FileInput | null {
-    return this.empty ? null : new FileInput(this.elementRef.nativeElement.value || []);
+    return;
+
+      this.empty ? null :
+      new FileInput(this.elementRef.nativeElement.value || []);
   }
 
   set value(fileInput: FileInput | null) {
@@ -142,11 +145,19 @@ export class MatFileInputComponent extends FileInputMixinBase
   private onTouched = () => {};
 
   get fileNames(): string {
-    return this.value ? this.value.fileNames : this.valuePlaceholder;
+    return
+      this.value ? this.value.fileNames :
+      this.valuePlaceholder;
   }
 
   writeValue(obj: FileInput | null): void {
-    this.renderer.setProperty(this.elementRef.nativeElement, 'value', obj instanceof FileInput ? obj.files : null);
+    this.renderer.setProperty(
+      this.elementRef.nativeElement,
+      'value',
+
+        obj instanceof FileInput ? obj.files :
+        null
+    );
   }
 
   registerOnChange(fn: (_: any) => void): void {
@@ -188,6 +199,36 @@ export class MatFileInputComponent extends FileInputMixinBase
   blur(): void {
     this.focused = false;
     this.onTouched();
+  }
+
+  @HostListener('dragover', [ '$event' ])
+  onDragOver(event: DragEvent): void {
+    if (this.disabled) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  @HostListener('drop', [ '$event' ])
+  onDrop(event: DragEvent): void {
+    if (this.disabled) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const fileList: FileList | null = event.dataTransfer.files;
+    const fileArray: File[] = [];
+    if (fileList) {
+      for (const file of Array.from(fileList)) {
+        fileArray.push(file);
+      }
+    }
+    this.value = new FileInput(fileArray);
+    this.onChange(this.value);
   }
 
   setDisabledState(isDisabled: boolean): void {
