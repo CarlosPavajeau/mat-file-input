@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:lib": "ng build mat-file-input --prod && cd dist/mat-file-input && npm pack",
-    "publish:lib": "npm publish dist/material-file-input",
+    "publish:lib": "npm publish dist/mat-file-input",
     "test": "ng test",
     "test:once": "ng test mat-file-input --watch=false",
     "lint": "ng lint",
