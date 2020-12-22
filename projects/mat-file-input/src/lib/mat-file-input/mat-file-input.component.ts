@@ -53,10 +53,10 @@ export class MatFileInputComponent extends FileInputMixinBase
   }
 
   get value(): FileInput | null {
-    return;
-
-      this.empty ? null :
-      new FileInput(this.elementRef.nativeElement.value || []);
+    if (this.empty) {
+      return null;
+    }
+    return new FileInput(this.elementRef.nativeElement.value || []);
   }
 
   set value(fileInput: FileInput | null) {
@@ -145,9 +145,10 @@ export class MatFileInputComponent extends FileInputMixinBase
   private onTouched = () => {};
 
   get fileNames(): string {
-    return
-      this.value ? this.value.fileNames :
-      this.valuePlaceholder;
+    if (this.value) {
+      return this.value.fileNames;
+    }
+    return this.valuePlaceholder;
   }
 
   writeValue(obj: FileInput | null): void {
