@@ -21,8 +21,8 @@
     "url": "https://github.com/cantte/mat-file-input"
   },
   "peerDependencies": {
-    "@angular/common": "~11.0.2",
-    "@angular/core": "~11.0.2"
+    "@angular/common": ">=11.0.2",
+    "@angular/core": ">=11.0.2"
   },
   "dependencies": {
     "tslib": "^2.0.0"
